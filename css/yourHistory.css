@@ -1,0 +1,36 @@
+header {
+margin-bottom:10%;	
+}
+
+.segment {
+text-align:center;
+font-size:2rem;
+height:30%;
+width:100%;
+display:block;
+float:left;
+margin-bottom:6%;
+}
+.segment:first-child {
+margin-top:0%;
+}
+.elementSegment>img {
+height:100%;
+width:auto;	
+}
+.elementSegment {
+width:100%;
+float:left;
+}
+
+.circle {
+  width:1%;
+  height: 2%;
+  border-radius: 50%;
+  background-color: white;	
+  margin-left:49.5%;
+  margin-right:49.5%;
+  float:left;
+  display:block;
+  margin-bottom:2%;
+}
