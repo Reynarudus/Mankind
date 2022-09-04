@@ -1,7 +1,7 @@
 
 //history Array
-const historytitle = ['The birth of Humanity','Collapse','Migration to Middle East','Migration to Europe','Invention of Agriculture'];
-const historyimg = ['chief','dead','middleEast','europe','village'];
+const historytitle = ['The birth of Humanity','Collapse','Migration to Middle East','Migration to Europe','Invention of Agriculture','Construction Stonehenge'];
+const historyimg = ['chief','dead','middleEast','europe','village','stonehenge'];
 
 
 

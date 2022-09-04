@@ -13,7 +13,8 @@ const event_list_img = ['img/Charles-R-Knight-caveman1.png',
 'img/shepherdNeolithic.png',
 'img/problemHarvest.png',
 'img/neolithicfarm2.png',
-
+'img/stonehengeViewedFromTheWest.png',
+'img/AndreHouotMagdaleniaCampoftheUpperPaleolithic.png',
 ]
 const event_list_title = ['The birth of humanity',
 'Bad Hunting',
@@ -34,6 +35,10 @@ const event_list_title = ['The birth of humanity',
 'Trade offer',
 'Problems in the harvest',
 'New Settlers',
+'Stonhege Construction',
+'Pilgrims',
+'A sign from the gods',
+'Rivalry with Farmers',
 ]
 const event_list_description = ['Around 300,000 appeared the first populations of Homo Sapiens derived from Homo erectus. They inhabited East Africa toiling in Paleolithic life. NOTE You start out as hunter-gatherers, to move to the next level of the organization you need to collect a certain amount of culture the required amount depends on the date and region',
 'Recently, hunting has completely failed, we lose surplus food.',
@@ -56,6 +61,10 @@ const event_list_description = ['Around 300,000 appeared the first populations o
 'Merchants offer you various goods',
 'The plague has devastated this year this harvest',
 'Your growing settlement attracts new settlers',
+'Your shamans have an interesting idea for a monumental structure',
+'Your structure attracts lots of pilgrims',
+'Soon the gods will send a sign in the form of a red moon, but what does this sign mean?',
+'Increasingly numerous Neolithic communities occupy more and more land, turning the number of natural areas into arable land, reducing the number of animals to be hunted',
 ]
 var sprawdzam = 0; // for dev
 const badhunting = {
@@ -139,7 +148,7 @@ img:8,
 options: ['It is time to start the journey','We are fine here'],
 descriptions: ['Change region to Middle East','Nothing changes'],
 effect: [false,0,0,0,0,0,0,0,0,'Middle East',0,0,0,false,0,0,0,0,0,0,0,0,0,0,0,0],
-historicalMomentBoolean: true,
+historicalMomentBoolean: 0,
 historicalmoment: 'o2o2o',
 };
 const migrationToEurope = {
@@ -150,7 +159,7 @@ img:8,
 options: ['It is time to start the journey','We are fine here'],
 descriptions: ['Change region to Europe','Nothing changes'],
 effect: [false,0,0,0,0,0,0,0,0,'Europe',0,0,0,false,0,0,0,0,0,0,0,0,0,0,0,0],
-historicalMomentBoolean: true,
+historicalMomentBoolean: 0,
 historicalmoment: 'o3o3o',
 };
 
@@ -162,7 +171,7 @@ img:9,
 options: ['Let a new age begin'],
 descriptions: ['Change government to Neolithic settlement'],
 effect: [false,0,'Neolithic settlement',0,0,0,0,0,0,0,0,0,0],
-historicalMomentBoolean: true,
+historicalMomentBoolean: 0,
 historicalmoment: 'o4o4o',
 };
 
@@ -210,33 +219,65 @@ description: 20,
 img:14,
 options: ['Let them come','Let them find another place'],
 descriptions: ['You gain 200 population and lose 150 food','You gain 50 food'],
-effect: [false,0,0,0,-150,0,0,0,200,0,0,0,0,false,0,0,0,50,0,0,0,0,0,0,0,0,] // change name, event next, government, religion, food, wealth, culture, militarization, population, region, enemy strength min, enemy strength max, battle effect	
+effect: [false,0,0,0,-150,0,0,0,200,0,0,0,0,false,0,0,0,50,0,0,0,0,0,0,0,0,], // change name, event next, government, religion, food, wealth, culture, militarization, population, region, enemy strength min, enemy strength max, battle effect	
 	
 }
-const migrationToEurope = {
-id:'migrationToEurope',
-name: 12,
-description: 12,
-img:8,
-options: ['It is time to start the journey','We are fine here'],
-descriptions: ['Change region to Europe','Nothing changes'],
-effect: [false,0,0,0,0,0,0,0,0,'Europe',0,0,0,false,0,0,0,0,0,0,0,0,0,0,0,0],
+const stonehengeBuild = {
+id:'stonehengeBuild',
+name: 19,
+description: 21,
+img:15,
+options: ['I will build it','These are just a few stones, who needs it ?'],
+descriptions: ['You lose 300 wealth, 300 culture and gain new event','Nothing changes'],
+effect: [false,0,0,0,0,-300,-300,0,0,0,0,0,0,false,0,0,0,0,0,0,0,0,0,0,0,0],
 historicalMomentBoolean: true,
-historicalmoment: 'o4o4o',
+historicalmoment: 'o5o5o',
 };
+
+const stonehengePilgrims = {
+id:'stonehengePilgrims',
+name: 20,
+description: 22,
+img:15,
+options: ['I will gladly accept their gifts','Let them stay longer'],
+descriptions: ['You gain 100 wealth','You gain 100 population'],
+effect: [false,0,0,0,0,100,0,0,0,0,0,0,0,false,0,0,0,0,0,0,0,100,0,0,0,0],
+};
+const signFromTheGods = {
+id:'signFromTheGods',
+name: 21,
+description: 23,
+img:15,
+options: ['It means a good harvest','War is coming!','A new era is about to come!'],
+descriptions: ['You gain 100 food','You gain 2 militarization','You gain 100 culture'],
+effect: [false,0,0,0,100,0,0,0,0,0,0,0,0,false,0,0,0,0,0,0,2,0,0,0,0,0,false,0,0,0,0,0,100,0,0,0,0,0,0],
+};
+
+const rivalryWithFarmers = {
+id:'rivalryWithFarmers',
+name: 22,
+description: 24,
+img:17,
+options: ['It does not sound good...'],
+descriptions: ['You lose 100 food'],
+effect: [false,0,0,0,-100,0,0,0,0,0,0,0,0],
+};
+
+
 //your history
 
-//name //date //img
-const yourHistory = [['The birth of Humanity'],['300000 BC'],['img/history/chief.png']];
+
 
  
 //event list
-let hunterGatherersEvents = [badhunting,goodhunting,newcomers]
-let stoneAgeEvents = [craftsman,smallenemytribeattack];
-let animismEvents = [ancestors]
-let selectedEvents = [];
-let neolithEvents = [goodharvest,ritualbattle,tradeoffert,problemHarvest,neolithicImigrant,];
+const hunterGatherersEvents = [badhunting,goodhunting,newcomers]
+const stoneAgeEvents = [craftsman,smallenemytribeattack];
+const animismEvents = [ancestors]
+const neolithEvents = [goodharvest,ritualbattle,tradeoffert,problemHarvest,neolithicImigrant,];
+const stonehengeEvents = [stonehengePilgrims,signFromTheGods];
+const neolithicVsPalaeolithic = [rivalryWithFarmers]
 
+let selectedEvents = [];
 
 
 
@@ -285,4 +326,8 @@ const battleEffect = [smallTribleWin,smallTribleDefeat,ritualBattleWin,ritualBat
 const lastevent = [lastFamine];
 
 //Important event
-let ImportantEventActive = [1,1];
+let ImportantEventActive = [1,1,1];
+
+// 0 - migration to Middle East
+// 1 - migration to Europe
+// 2 - Stonhege Construction

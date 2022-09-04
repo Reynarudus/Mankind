@@ -15,10 +15,20 @@ var turn = 0;
 var yourhistorylink = '0o0o300000BC';
 var maxculture = 1000
 
+
+
+function backToIndex() {
+window.location.replace("index.html");	
+}
 function nextTurn(){
 //Culture cannot be negative
 if(culture<0){
 culture = 0;
+}
+//Militarization cannot be <1
+
+if(militarization<1){
+militarization = 1;
 }
 
 forcecalculator()
@@ -31,6 +41,7 @@ document.getElementById('region-name').innerHTML = 'Region: '+regionName;
 document.getElementById('food-number').innerHTML = 'Food: '+food;
 document.getElementById('wealth-number').innerHTML = 'Wealth: '+wealth;
 document.getElementById('culture-number').innerHTML = 'Culure: '+culture;
+document.getElementById('militarization-number').innerHTML = 'Militarization: '+militarization;
 
 turn++;
 
@@ -105,8 +116,7 @@ var reseteventlist = false;
 function randomevent(){
 	
 	
-	
-if (governmentName=='Hunter-gatherers'){
+if (governmentName=='Hunter-gatherers'){	
 switch (true){
 case (BCAD=='AD'):
 maxculture = 25;
@@ -132,6 +142,7 @@ default:
 maxculture = 1000;
 break;
 }
+
 document.getElementById('culture-number').innerHTML += '/'+maxculture;
 }
 
@@ -147,6 +158,10 @@ else if(food<=0){
 countryeffect(lastFamine,0);
 }
 
+//Bankruptcy
+
+
+
 
 //IMPORTANT EVENT - THERE MUST HAPPEN IF THE CONDITIONS ARE FULFILLED
 
@@ -157,13 +172,20 @@ ImportantEventActive[0] = 0;
 event1(migrationToMiddleEast.img,migrationToMiddleEast.name,migrationToMiddleEast.description,migrationToMiddleEast.options,migrationToMiddleEast.descriptions,migrationToMiddleEast.id);
 }
 //migration to Europe
-else if (date<=32500&&ImportantEventActive[1]==1) {
+else if (date<=32500&&ImportantEventActive[1]==1&&ImportantEventActive[0]==0) {
 ImportantEventActive[1] = 0;
 event1(migrationToEurope.img,migrationToEurope.name,migrationToEurope.description,migrationToEurope.options,migrationToEurope.descriptions,migrationToEurope.id);
 }
 //Beginning of the Neolithic
 else if (governmentName=='Hunter-gatherers'&&culture>=maxculture) {
 event1(beginningoftheneolithic.img,beginningoftheneolithic.name,beginningoftheneolithic.description,beginningoftheneolithic.options,beginningoftheneolithic.descriptions,beginningoftheneolithic.id);
+}
+
+
+//Stonhege Construction
+else if (governmentName=='Neolithic settlement'&&religonName=='Animism'&&culture>=300&&wealth>=300&&ImportantEventActive[2]==1) {
+ImportantEventActive[2] = 0;
+event1(stonehengeBuild.img,stonehengeBuild.name,stonehengeBuild.description,stonehengeBuild.options,stonehengeBuild.descriptions,stonehengeBuild.id);
 }
 
 
@@ -178,6 +200,9 @@ Array.prototype.push.apply(selectedEvents,stoneAgeEvents);
 
 if (religonName=='Animism'){
 Array.prototype.push.apply(selectedEvents,animismEvents);
+if (ImportantEventActive[2] == 0){
+Array.prototype.push.apply(selectedEvents,stonehengeEvents);
+}
 }
 
 if (governmentName=='Hunter-gatherers'){
@@ -186,7 +211,11 @@ Array.prototype.push.apply(selectedEvents,hunterGatherersEvents);}
 
 if (governmentName=='Neolithic settlement'){
 Array.prototype.push.apply(selectedEvents,neolithEvents);}
+//Backward
+if (governmentName=='Hunter-gatherers'&&(date<=7000||BCAD=='AD')){
+Array.prototype.push.apply(selectedEvents,neolithicVsPalaeolithic);}
 }
+
 
 
 var randomevent = Math.floor(Math.random()*selectedEvents.length);
@@ -207,7 +236,7 @@ document.getElementById('event-description').innerHTML=event_list_description[c]
 optiongeneration(options.length,options,descriptions,effect);
 };
 //options
-function optiongeneration(a,b,c,d) {
+function optiongeneration(a,b,c,d) {// a - option.length b - num options 
 document.getElementById('options').innerHTML = "";
 for (s = 0; s < a; s++) {
 var widthdivvalue = ((100-a*3)/a)
@@ -273,9 +302,9 @@ selectedEvents.length =0;
 
 if (a.effect[12+b]!=0){
 battleresult = 0;
-var enemyStrength = Math.random()*a.effect[b+11]+a.effect[b+10];
+var enemyStrength = Math.floor(Math.random() * (a.effect[b+11] - a.effect[b+10]) ) + a.effect[b+10];
+console.log(enemyStrength);
 if (enemyStrength!=force) {
-	console.log(enemyStrength);
     if (enemyStrength<force){
     battleresult = a.effect[12+b]-1;
 	console.log(a.effect[12+b]-1);
@@ -290,7 +319,7 @@ if (enemyStrength!=force) {
 
 }
 
-if (a.historicalMomentBoolean==true) {
+if (a.historicalMomentBoolean==b&&a.historicalmoment.length>0) {
 	yourhistorylink += a.historicalmoment+date+BCAD;
 }
 
@@ -346,6 +375,7 @@ document.getElementById('region-name').innerHTML = 'Region: '+regionName;
 document.getElementById('food-number').innerHTML = 'Food: '+food;
 document.getElementById('wealth-number').innerHTML = 'Wealth: '+wealth;
 document.getElementById('culture-number').innerHTML = 'Culure: '+culture;
+document.getElementById('militarization-number').innerHTML = 'Militarization: '+militarization;
 
 
 forcecalculator();
