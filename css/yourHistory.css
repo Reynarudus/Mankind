@@ -34,3 +34,18 @@ float:left;
   display:block;
   margin-bottom:2%;
 }
+
+#copyLink {
+margin-left:36%;
+font-size:3rem;
+background-color:#656565;
+float:left;
+text-align:center;
+box-shadow: 1px 26px 24px 0px rgba(0, 0, 0, 1);
+margin-top:5%;
+margin-bottom:5%;
+border-radius:5%;
+width:20%;
+margin-left: 40%;
+padding: 2.5% 0%;
+}
