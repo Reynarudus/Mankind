@@ -27,4 +27,18 @@ if (i!=getArray.length-3) {
 	
 }
 }
+
+function copyLink() {
+document.getElementById('copyLink').style.backgroundColor='#434343';
+document.getElementById('copyLink').style.color='#656565';
+document.getElementById('copyLink').innerHTML = "Link copied!";
+document.getElementById('copyLink').removeAttribute("onClick");
+ var temp = document.createElement("textarea");
+document.body.appendChild(temp);
+temp.value = "file:///C:/Users/mateu/Desktop/Mankind/yourHistory.html?"+params;
+temp.select();
+document.execCommand("copy");
+document.body.removeChild(temp);
+	
+}
 generateHistory('history');

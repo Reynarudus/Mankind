@@ -16,7 +16,9 @@ var yourhistorylink = '0o0o300000BC';
 var maxculture = 1000
 
 
-
+function reset() {
+document.getElementById('inputnewname').value = '';	
+}
 function backToIndex() {
 window.location.replace("index.html");	
 }
