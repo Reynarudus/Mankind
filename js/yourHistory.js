@@ -1,7 +1,8 @@
 
 //history Array
-const historytitle = ['The birth of Humanity','Collapse','Migration to Middle East','Migration to Europe','Invention of Agriculture','Construction Stonehenge'];
-const historyimg = ['chief','dead','middleEast','europe','village','stonehenge'];
+const historytitle = ['The birth of Humanity','Collapse','Migration to Middle East','Migration to Europe','Invention of Agriculture','Construction Stonehenge','Urbanization'];
+const historyimg = ['chief','dead','middleEast','europe','village','stonehenge','city'];
+
 
 
 
@@ -12,7 +13,7 @@ function generateHistory(a){
 for (i=0; i<(getArray.length); i=i+3){
 	document.getElementById(a).innerHTML+=
 	"<div class='segment'>"+
-	"<div class='elementSegment'>"+historytitle[getArray[i]]+"</div>"+
+	"<div class='elementSegment' style='font-weight:bold'>"+historytitle[getArray[i]]+"</div>"+
 	"<div class='elementSegment'>  <img src='img/history/"+historyimg[getArray[i+1]]+".png'></div>"+
 	"<div class='elementSegment'>"+getArray[i+2]+"</div>"+
 	"</div>";	
@@ -20,8 +21,9 @@ for (i=0; i<(getArray.length); i=i+3){
 	console.log(getArray.length);
 
 if (i!=getArray.length-3) {
+	document.getElementById(a).innerHTML+="<div class='circles'></div>";
 	for (x=0; x<5; x++) {
-	document.getElementById(a).innerHTML+="<div class='circle'></div>"
+	document.querySelector('.circles:last-child').innerHTML+="<div class='circle'></div>"
 	}
 }
 	
@@ -35,7 +37,7 @@ document.getElementById('copyLink').innerHTML = "Link copied!";
 document.getElementById('copyLink').removeAttribute("onClick");
  var temp = document.createElement("textarea");
 document.body.appendChild(temp);
-temp.value = "file:///C:/Users/mateu/Desktop/Mankind/yourHistory.html?"+params;
+temp.value = "http://msz.cba.pl/Mankind/yourHistory.php?"+params;
 temp.select();
 document.execCommand("copy");
 document.body.removeChild(temp);

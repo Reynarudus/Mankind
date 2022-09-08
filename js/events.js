@@ -15,6 +15,8 @@ const event_list_img = ['img/Charles-R-Knight-caveman1.png',
 'img/neolithicfarm2.png',
 'img/stonehengeViewedFromTheWest.png',
 'img/AndreHouotMagdaleniaCampoftheUpperPaleolithic.png',
+'img/eveGoldsmithCoxeter.png',
+'img/mesopotamiaCity.png'
 ]
 const event_list_title = ['The birth of humanity',
 'Bad Hunting',
@@ -39,6 +41,9 @@ const event_list_title = ['The birth of humanity',
 'Pilgrims',
 'A sign from the gods',
 'Rivalry with Farmers',
+'Bankruptcy',
+'Emigration',
+'Urbanization',
 ]
 const event_list_description = ['Around 300,000 appeared the first populations of Homo Sapiens derived from Homo erectus. They inhabited East Africa toiling in Paleolithic life. NOTE You start out as hunter-gatherers, to move to the next level of the organization you need to collect a certain amount of culture the required amount depends on the date and region',
 'Recently, hunting has completely failed, we lose surplus food.',
@@ -53,7 +58,7 @@ const event_list_description = ['Around 300,000 appeared the first populations o
 'Your nation died a sudden, unexpected death. Arecheologists argue to this day whether it was due to war or disease.',
 'Many tribes are heading to Levant en masse, will your tribe go on this journey?',
 'Europe is attracting more and more interest, it is said to be full of fur and other riches, will your tribe go on this journey?',
-'The discovery of agriculture revolutionized your society. It will soon lead to the specialization of social classes, the development of trade, and sudden population growth',
+'The discovery of agriculture revolutionized your society. It will soon lead to the specialization of social classes, the development of trade, and sudden population growth <br> Note// Get 1000 population to go to the next stage of development. The Neolithic is currently the last stage in this game, when you gain 1000 population the game will end.',
 'The harvest today has been exceptionally successful',
 'A neighboring tribe challenges your to a ritual battle. They want to praise the gods with blood and check which tribe is stronger!',
 'Victory! The gods were on your side',
@@ -65,6 +70,9 @@ const event_list_description = ['Around 300,000 appeared the first populations o
 'Your structure attracts lots of pilgrims',
 'Soon the gods will send a sign in the form of a red moon, but what does this sign mean?',
 'Increasingly numerous Neolithic communities occupy more and more land, turning the number of natural areas into arable land, reducing the number of animals to be hunted',
+'It is hard to build a civilization while in poverty',
+'Your culture is uninteresting and primitive. Other civilizations are more attractive to your inhabitants',
+'Your nation has entered a new stage of development, founded its first city, it will certainly soon begin to influence other nations politically. <br> It is over now, thanks for playing ^^ <br> Out of curiosity, did you manage to build a stonehenge?',
 ]
 var sprawdzam = 0; // for dev
 const badhunting = {
@@ -122,24 +130,6 @@ descriptions: ['You lose 50 food and 20 wealth<br>','Enemy strength 50-100'],
 effect: [false,0,0,0,-50,-20,0,0,0,0,0,0,0,false,0,0,0,0,0,0,0,0,0,50,100,1],
 };
 
-const lastFamine = {
-id:'lastFamine',
-name: 9,
-description: 9,
-img:7,
-effect: [false,0,0,0,0,0,0,0,0,0,0,0,0],
-endgame:true,
-};
-
-const abruptEnd = {
-id:'abruptEnd',
-name: 10,
-description: 10,
-img:7,
-effect: [false,0,0,0,0,0,0,0,0,0,0,0,0],
-endgame:true,
-};
-
 const migrationToMiddleEast = {
 id:'migrationToMiddleEast',
 name: 11,
@@ -148,7 +138,7 @@ img:8,
 options: ['It is time to start the journey','We are fine here'],
 descriptions: ['Change region to Middle East','Nothing changes'],
 effect: [false,0,0,0,0,0,0,0,0,'Middle East',0,0,0,false,0,0,0,0,0,0,0,0,0,0,0,0],
-historicalMomentBoolean: 0,
+historicalMomentOption: 0,
 historicalmoment: 'o2o2o',
 };
 const migrationToEurope = {
@@ -159,7 +149,7 @@ img:8,
 options: ['It is time to start the journey','We are fine here'],
 descriptions: ['Change region to Europe','Nothing changes'],
 effect: [false,0,0,0,0,0,0,0,0,'Europe',0,0,0,false,0,0,0,0,0,0,0,0,0,0,0,0],
-historicalMomentBoolean: 0,
+historicalMomentOption: 0,
 historicalmoment: 'o3o3o',
 };
 
@@ -171,7 +161,7 @@ img:9,
 options: ['Let a new age begin'],
 descriptions: ['Change government to Neolithic settlement'],
 effect: [false,0,'Neolithic settlement',0,0,0,0,0,0,0,0,0,0],
-historicalMomentBoolean: 0,
+historicalMomentOption: 0,
 historicalmoment: 'o4o4o',
 };
 
@@ -191,7 +181,7 @@ description: 15,
 img:11,
 options: ['We will praise the gods in a different way','For the gods!'],
 descriptions: ['You lose 200 culture','Enemy strength 100-200'],
-effect: [false,0,0,0,200,0,0,0,0,0,0,0,0,false,0,0,0,0,0,0,0,0,0,100,200,3] 
+effect: [false,0,0,0,0,0,-200,0,0,0,0,0,0,false,0,0,0,0,0,0,0,0,0,100,200,3] 
 };
 const tradeoffert = {
 id:'tradeoffert',
@@ -230,7 +220,7 @@ img:15,
 options: ['I will build it','These are just a few stones, who needs it ?'],
 descriptions: ['You lose 300 wealth, 300 culture and gain new event','Nothing changes'],
 effect: [false,0,0,0,0,-300,-300,0,0,0,0,0,0,false,0,0,0,0,0,0,0,0,0,0,0,0],
-historicalMomentBoolean: true,
+historicalMomentOption: 0,
 historicalmoment: 'o5o5o',
 };
 
@@ -263,10 +253,65 @@ descriptions: ['You lose 100 food'],
 effect: [false,0,0,0,-100,0,0,0,0,0,0,0,0],
 };
 
+const cityBuild = {
+id:'cityBuild',
+name: 24,
+description: 28,
+img:18,
+effect: [false,0,0,0,0,0,0,0,0,0,0,0,0],
+options: ['This is end? :c'],
+historicalMomentOption: 0,
+historicalmoment: 'o6o6o',
+endgame:true,
+};
 
-//your history
 
+//statistics events
+const lastFamine = {
+id:'lastFamine',
+name: 9,
+description: 9,
+img:7,
+effect: [false,0,0,0,0,0,0,0,0,0,0,0,0],
+historicalMomentOption: 0,
+historicalmoment: 'o1o1o',
+options: ['It does not sound good...'],
+descriptions: ['End Game'],
 
+endgame:true,
+};
+const abruptEnd = {
+id:'abruptEnd',
+name: 10,
+description: 10,
+img:7,
+effect: [false,0,0,0,0,0,0,0,0,0,0,0,0],
+historicalMomentOption: 0,
+historicalmoment: 'o1o1o',
+options: ['It does not sound good...'],
+descriptions: ['End Game'],
+endgame:true,
+};
+const bankruptcy = {
+id:'bankruptcy',
+name: 23,
+description: 25,
+img:17,
+options: ['Poverty is not cool'],
+descriptions: ['You lost all militarization and culture'],
+effect: [false,0,0,0,0,0,0,0,0,0,0,0,0],
+bankruptcy:true,
+};
+const weakCulture = {
+id:'weakCulture',
+name: 24,
+description: 26,
+img:17,
+options: ['Come back!'],
+descriptions: ['You lost 100 population and gain 20 culture'],
+effect: [false,0,0,0,0,0,20,0,-100,0,0,0,0],
+};
+// change name, event next, government, religion, food, wealth, culture, militarization, population, region, enemy strength min, enemy strength max, battle effect	
 
  
 //event list
@@ -326,8 +371,9 @@ const battleEffect = [smallTribleWin,smallTribleDefeat,ritualBattleWin,ritualBat
 const lastevent = [lastFamine];
 
 //Important event
-let ImportantEventActive = [1,1,1];
+let ImportantEventActive = [1,1,1,1];
 
 // 0 - migration to Middle East
 // 1 - migration to Europe
 // 2 - Stonhege Construction
+// 3 - city Build

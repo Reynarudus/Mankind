@@ -7,32 +7,31 @@ var food;
 var force;
 var wealth;
 var culture;
-var militarization = 1;
+var militarization = 0;
 var battleresult;
 var date = 300000;
 var BCAD = 'BC';
 var turn = 0;
 var yourhistorylink = '0o0o300000BC';
 var maxculture = 1000
+var maxpopulation = 1000
 
 
 function reset() {
 document.getElementById('inputnewname').value = '';	
 }
 function backToIndex() {
-window.location.replace("index.html");	
+window.location.replace("index.php");	
 }
 function nextTurn(){
 //Culture cannot be negative
 if(culture<0){
 culture = 0;
 }
-//Militarization cannot be <1
-
-if(militarization<1){
-militarization = 1;
+//Militarization cannot be negative
+if(militarization<0){
+militarization = 0;
 }
-
 forcecalculator()
 document.getElementById('civilization-name').innerHTML = 'Name: '+tribleName;
 document.getElementById('government-name').innerHTML = 'Government: '+governmentName;
@@ -148,19 +147,32 @@ break;
 document.getElementById('culture-number').innerHTML += '/'+maxculture;
 }
 
+if (governmentName=='Neolithic settlement'){	
+document.getElementById('population-number').innerHTML += '/'+maxpopulation;
+
+}
+
 	
 	
 	
 	
 //END GAME EVENT	
 if (populationNumber<=0) {
-countryeffect(abruptEnd,0);
+eventMankind(abruptEnd.img,abruptEnd.name,abruptEnd.description,abruptEnd.options,abruptEnd.descriptions,abruptEnd.id);
+
 }	
 else if(food<=0){
-countryeffect(lastFamine,0);
+eventMankind(lastFamine.img,lastFamine.name,lastFamine.description,lastFamine.options,lastFamine.descriptions,lastFamine.id);
 }
 
 //Bankruptcy
+else if (wealth<0) {
+eventMankind(bankruptcy.img,bankruptcy.name,bankruptcy.description,bankruptcy.options,bankruptcy.descriptions,bankruptcy.id);
+}
+
+else if (culture==0&&governmentName!='Hunter-gatherers') {
+eventMankind(weakCulture.img,weakCulture.name,weakCulture.description,weakCulture.options,weakCulture.descriptions,weakCulture.id);
+}
 
 
 
@@ -171,23 +183,25 @@ countryeffect(lastFamine,0);
 else {	
 if (date<=54700&&ImportantEventActive[0]==1) {
 ImportantEventActive[0] = 0;
-event1(migrationToMiddleEast.img,migrationToMiddleEast.name,migrationToMiddleEast.description,migrationToMiddleEast.options,migrationToMiddleEast.descriptions,migrationToMiddleEast.id);
+eventMankind(migrationToMiddleEast.img,migrationToMiddleEast.name,migrationToMiddleEast.description,migrationToMiddleEast.options,migrationToMiddleEast.descriptions,migrationToMiddleEast.id);
 }
 //migration to Europe
 else if (date<=32500&&ImportantEventActive[1]==1&&ImportantEventActive[0]==0) {
 ImportantEventActive[1] = 0;
-event1(migrationToEurope.img,migrationToEurope.name,migrationToEurope.description,migrationToEurope.options,migrationToEurope.descriptions,migrationToEurope.id);
+eventMankind(migrationToEurope.img,migrationToEurope.name,migrationToEurope.description,migrationToEurope.options,migrationToEurope.descriptions,migrationToEurope.id);
 }
 //Beginning of the Neolithic
 else if (governmentName=='Hunter-gatherers'&&culture>=maxculture) {
-event1(beginningoftheneolithic.img,beginningoftheneolithic.name,beginningoftheneolithic.description,beginningoftheneolithic.options,beginningoftheneolithic.descriptions,beginningoftheneolithic.id);
+eventMankind(beginningoftheneolithic.img,beginningoftheneolithic.name,beginningoftheneolithic.description,beginningoftheneolithic.options,beginningoftheneolithic.descriptions,beginningoftheneolithic.id);
 }
-
-
+//Build a City
+else if (governmentName=='Neolithic settlement'&&populationNumber>=maxpopulation) {
+eventMankind(cityBuild.img,cityBuild.name,cityBuild.description,cityBuild.options,cityBuild.descriptions,cityBuild.id);
+}
 //Stonhege Construction
 else if (governmentName=='Neolithic settlement'&&religonName=='Animism'&&culture>=300&&wealth>=300&&ImportantEventActive[2]==1) {
 ImportantEventActive[2] = 0;
-event1(stonehengeBuild.img,stonehengeBuild.name,stonehengeBuild.description,stonehengeBuild.options,stonehengeBuild.descriptions,stonehengeBuild.id);
+eventMankind(stonehengeBuild.img,stonehengeBuild.name,stonehengeBuild.description,stonehengeBuild.options,stonehengeBuild.descriptions,stonehengeBuild.id);
 }
 
 
@@ -222,7 +236,7 @@ Array.prototype.push.apply(selectedEvents,neolithicVsPalaeolithic);}
 
 var randomevent = Math.floor(Math.random()*selectedEvents.length);
 var drawevent = selectedEvents[randomevent];
-event1(drawevent.img,drawevent.name,drawevent.description,drawevent.options,drawevent.descriptions,drawevent.id);
+eventMankind(drawevent.img,drawevent.name,drawevent.description,drawevent.options,drawevent.descriptions,drawevent.id);
 selectedEvents.splice(randomevent,1);
 }
 
@@ -231,7 +245,7 @@ selectedEvents.splice(randomevent,1);
 
 
 
-function event1(a,b,c,options,descriptions,effect){ //events
+function eventMankind(a,b,c,options,descriptions,effect){ //events
 document.getElementById('event-img').innerHTML='<img src='+event_list_img[a]+'>';
 document.getElementById('event-title').innerHTML=event_list_title[b];
 document.getElementById('event-description').innerHTML=event_list_description[c];
@@ -274,7 +288,7 @@ if (a.effect[b]==true){
 tribleName =a[b];
 }
 if (a.effect[b+1]!=0){
-//nextevent
+eventMankind(effect[b+1].img,effect[b+1].name,effect[b+1].description,effect[b+1].options,effect[b+1].descriptions,effect[b+1].id);
 }
 
 if (a.effect[2+b]!=0){
@@ -316,25 +330,27 @@ if (enemyStrength!=force) {
 	console.log(a.effect[12+b]);
     }
     drawevent = battleEffect[battleresult];
-    event1(drawevent.img,drawevent.name,drawevent.description,drawevent.options,drawevent.descriptions,drawevent.id);
+    eventMankind(drawevent.img,drawevent.name,drawevent.description,drawevent.options,drawevent.descriptions,drawevent.id);
     }
 
 }
 
-if (a.historicalMomentBoolean==b&&a.historicalmoment.length>0) {
+if (a.historicalMomentOption==b&&a.historicalmoment.length>0) {
 	yourhistorylink += a.historicalmoment+date+BCAD;
+}
+if (a.bankruptcy==true) {
+	culture = 0;
+	militarization = 0;
+	wealth = 0;
+	forcecalculator();
 }
 
 if (a.endgame==true) {
-	document.getElementById('event-img').innerHTML='<img src='+event_list_img[a.img]+'>';
-	document.getElementById('event-title').innerHTML=event_list_title[a.name];
-	document.getElementById('event-description').innerHTML=event_list_description[a.description];
-	yourhistorylink += 'o1o1o'+date+BCAD;
-	document.getElementById('options').innerHTML += "<div class='options' onclick='redirectToYourHistory()' style=width:100%>View your history</div>";
+	window.location.replace("http://msz.cba.pl/Mankind/yourHistory.php?historyvalues="+yourhistorylink);	
 }
 
 if (a.effect[12+b]==0&&a.endgame!=true) {
-nextTurn();
+	nextTurn();
 }
 }
 
@@ -347,7 +363,6 @@ function optionsDescription(a){
 a="d"+a
 document.getElementById(a).style.color='white';
 document.getElementById(a).style.backgroundColor='#808080';
-
 }
 function noneOptionsDescription(a){
 a="d"+a
@@ -399,12 +414,15 @@ document.getElementById('inputnewname').style.backgroundColor='red';
 }
 
 function forcecalculator(){ //force calculator
-force = Math.round((populationNumber*0.4)*militarization);
+force = Math.round(populationNumber*0.4);
+if(militarization>0){
+force = force*militarization;
+}
 document.getElementById('force-number').innerHTML = 'Force: '+force;
 }
 
 //redirect to yourHistory
 function redirectToYourHistory(){
-window.location.replace("yourHistory.html?historyvalues="+yourhistorylink);	
+window.location.replace("yourHistory.php?historyvalues="+yourhistorylink);	
 }
 
