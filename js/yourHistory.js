@@ -1,13 +1,12 @@
 
+
 //history Array
 const historytitle = ['The birth of Humanity','Collapse','Migration to Middle East','Migration to Europe','Invention of Agriculture','Construction Stonehenge','Urbanization'];
 const historyimg = ['chief','dead','middleEast','europe','village','stonehenge','city'];
 
 
-
-
-let params = new URLSearchParams (window.location.search);
-let getvalue = params.get('historyvalues');
+const params = new URLSearchParams (window.location.search);
+const getvalue = params.get('historyvalues');
 const getArray = getvalue.split("o");
 function generateHistory(a){	
 for (i=0; i<(getArray.length); i=i+3){
@@ -35,7 +34,7 @@ document.getElementById('copyLink').style.backgroundColor='#434343';
 document.getElementById('copyLink').style.color='#656565';
 document.getElementById('copyLink').innerHTML = "Link copied!";
 document.getElementById('copyLink').removeAttribute("onClick");
- var temp = document.createElement("textarea");
+let temp = document.createElement("textarea");
 document.body.appendChild(temp);
 temp.value = "http://msz.cba.pl/Mankind/yourHistory.php?"+params;
 temp.select();
