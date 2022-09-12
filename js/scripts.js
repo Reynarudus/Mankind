@@ -1,20 +1,20 @@
-var tribleName;
-var governmentName;
-var religonName;
-var populationNumber;
-var regionName;
-var food;
-var force;
-var wealth;
-var culture;
-var militarization = 0;
-var battleresult;
-var date = 300000;
-var BCAD = 'BC';
-var turn = 0;
-var yourhistorylink = '0o0o300000BC';
-var maxculture = 1000
-var maxpopulation = 1000
+let tribleName;
+let governmentName;
+let religonName;
+let populationNumber;
+let regionName;
+let food;
+let force;
+let wealth;
+let culture;
+let militarization = 0;
+let battleresult;
+let date = 300000;
+let BCAD = 'BC';
+let turn = 0;
+let yourhistorylink = '0o0o300000BC';
+let maxculture = 1000
+let maxpopulation = 1000
 
 
 function reset() {
@@ -113,7 +113,7 @@ randomevent()
 }
 
 
-var reseteventlist = false;
+let reseteventlist = false;
 function randomevent(){
 	
 	
@@ -234,8 +234,8 @@ Array.prototype.push.apply(selectedEvents,neolithicVsPalaeolithic);}
 
 
 
-var randomevent = Math.floor(Math.random()*selectedEvents.length);
-var drawevent = selectedEvents[randomevent];
+let randomevent = Math.floor(Math.random()*selectedEvents.length);
+let drawevent = selectedEvents[randomevent];
 eventMankind(drawevent.img,drawevent.name,drawevent.description,drawevent.options,drawevent.descriptions,drawevent.id);
 selectedEvents.splice(randomevent,1);
 }
@@ -255,11 +255,11 @@ optiongeneration(options.length,options,descriptions,effect);
 function optiongeneration(a,b,c,d) {// a - option.length b - num options 
 document.getElementById('options').innerHTML = "";
 for (s = 0; s < a; s++) {
-var widthdivvalue = ((100-a*3)/a)
-var spacedivvalue = (a*3)/(a-1)
-var divwidth = 'width:'+widthdivvalue+'%;'
-var divspace = 'margin-left:10%; width:20%';
-var divstyle = 'width:'+widthdivvalue+'%;margin-left:'+spacedivvalue+'%'
+let widthdivvalue = ((100-a*3)/a)
+let spacedivvalue = (a*3)/(a-1)
+let divwidth = 'width:'+widthdivvalue+'%;'
+let divspace = 'margin-left:10%; width:20%';
+let divstyle = 'width:'+widthdivvalue+'%;margin-left:'+spacedivvalue+'%'
 if (a==1){
 document.getElementById('options').innerHTML += "<div class='options' style=width:100% onclick='countryeffect("+d+","+s+")' onmouseover='optionsDescription("+s+")' onmouseout='noneOptionsDescription("+s+")'>"+b[s]+"</div>";
 document.getElementById('options_description').innerHTML += "<div id='d"+s+"' class='options_descriptions' style=width:100%>"+c[s]+"</div>";
@@ -318,7 +318,7 @@ selectedEvents.length =0;
 
 if (a.effect[12+b]!=0){
 battleresult = 0;
-var enemyStrength = Math.floor(Math.random() * (a.effect[b+11] - a.effect[b+10]) ) + a.effect[b+10];
+let enemyStrength = Math.floor(Math.random() * (a.effect[b+11] - a.effect[b+10]) ) + a.effect[b+10];
 console.log(enemyStrength);
 if (enemyStrength!=force) {
     if (enemyStrength<force){
@@ -341,7 +341,7 @@ if (a.historicalMomentOption==b&&a.historicalmoment.length>0) {
 if (a.bankruptcy==true) {
 	culture = 0;
 	militarization = 0;
-	wealth = 0;
+	wealth = 20;
 	forcecalculator();
 }
 
