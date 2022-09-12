@@ -74,7 +74,6 @@ const event_list_description = ['Around 300,000 appeared the first populations o
 'Your culture is uninteresting and primitive. Other civilizations are more attractive to your inhabitants',
 'Your nation has entered a new stage of development, founded its first city, it will certainly soon begin to influence other nations politically. <br> It is over now, thanks for playing ^^ <br> Out of curiosity, did you manage to build a stonehenge?',
 ]
-var sprawdzam = 0; // for dev
 const badhunting = {
 id:'badhunting',
 name: 1,
