@@ -426,3 +426,4 @@ function redirectToYourHistory(){
 window.location.replace("yourHistory.php?historyvalues="+yourhistorylink);	
 }
 
+
