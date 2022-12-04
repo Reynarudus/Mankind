@@ -3,6 +3,9 @@ color:white;
 background-color:#454545;
 font-size:10px;
 }
+
+/*  Heder   */
+
 header {
 height:5%;
 text-align:center;	
@@ -11,12 +14,11 @@ box-shadow: 1px 26px 24px 0px rgba(0, 0, 0, 1);
 padding:1%;
 width:98%;
 float:left;
-font-size:2rem;
-font-weight:bold;
+font-size:1.9rem;
 }
 
 
-#date,#turn,#title{
+#date,#turn,#title,#author{
 float:left;
 width:20%;	
 height:100%;
@@ -24,7 +26,18 @@ height:100%;
 #title {
 text-align:center;
 float:left;
+font-weight:bold;
 }
+#author {
+float:right;
+text-align: right;
+font-size:1rem;
+}
+
+/*  Event   */
+
+
+
 
 #event {
 background-color:#484848;
@@ -66,6 +79,15 @@ float:left;
 text-align:justify;
 font-size:1rem;
 }
+
+img {
+width:100%;
+height:100%;	
+}
+
+/*  Aside   */
+
+
 aside {
 background-color:#484848;
 box-shadow: -29px 8px 24px 0px rgba(0, 0, 0, 1);
@@ -76,7 +98,6 @@ left: 97.5%;
 top: 20%;
 font-size:2rem;
 font-weight:bold;
-float:left;
 transition-duration:0.25s;
 }
 #info {
@@ -110,12 +131,11 @@ width:50%;
 float:left;
 display:block;
 }
-img {
-width:100%;
-height:100%;	
-}
 
-footer {
+
+/* Options */
+
+#consoleMankind {
 background-color:#484848;
 box-shadow: 1px 26px 24px 0px rgba(0, 0, 0, 1);
 height:14%;
@@ -128,23 +148,24 @@ float:left;
 #newname {
 width:100%;	
 }
+
+.buttonok {
+width:10%;
+height:100%;
+float:left;	
+font-size:3rem;
+text-align:center;
+
+}
 #no_ok {
 margin-left:15%;
-width:10%;
-height:88%;	
-float:left;	
 background-color:#a81414;
-font-size:6rem;
-text-align:center;
-padding-top:1%
 }
 #ok {
-width:10%;
-height:100%;	
+	
 float:left;
 background-color:green;
-font-size:6rem;
-text-align:center;
+height:100%;
 }
 #inputnewname {
 width:50%;
@@ -152,6 +173,7 @@ height:100%;
 float:left;
 text-align:center;
 font-size:3rem;
+background-color: white;
 }
 #no_ok:hover {
 background-color:#ff0000;
@@ -171,15 +193,19 @@ text-align:center;
 background-color:#656565;
 float:left;
 }
-
+#options {
+width:100%;	
+}
 #options_description {
-	position:absolute;
-	bottom:20%;
+	width:100%;	
+	position:relative;
+	bottom:230%;
 	background-color:rgba (0,0,0,0);
 	z-index:10;
-	height:14%;
-	width:60%;
-	display:block;
+ 	overflow: hidden;
+ 	height:120%;
+
+	
 }
 
 .options_descriptions {
@@ -190,4 +216,98 @@ font-size:2rem;
 text-align:center;
 background-color:rgba(0,0,0,0);
 color: rgba(0,0,0,0);
+}
+
+
+
+
+
+@media only screen and (max-width: 980px) {
+	
+	
+/*Events */	
+	
+#event {
+margin:0%;
+width:100%;	
+}
+#event-img,#event-title,#event-description  {
+width:100%;	
+margin:0%;
+text-align:center;
+border-style:none;
+
+}
+
+#event-title {
+font-size:3rem
+}
+#event-description {
+font-size:2rem
+}
+
+
+/*aside */
+
+
+
+aside {
+width:5%;
+height:10%;
+left: 95%;
+}
+aside:hover {
+height:60%;
+}
+
+/* options */
+
+#consoleMankind {
+
+width:100%;
+margin:0%;
+margin-top:21%;
+}
+
+#options,#options_description {
+width:100%;
+margin-bottom:14%;
+}
+.options_descriptions {
+background-color:#656565;
+float:left;
+color:white;
+}
+
+
+#options {
+width:100%;	
+height:60%;
+}
+#options_description {
+	width:100%;	
+	position:relative;
+	bottom:210%;
+	background-color:rgba (0,0,0,0);
+	z-index:10;
+ 	overflow: hidden;
+ 	height:80%;
+
+	
+}
+
+
+.buttonok {
+	width:25%;
+	height:100%;
+	float:left;	
+	font-size:6rem;
+	text-align:center;
+	
+	}
+
+#no_ok {
+margin-left:0%;
+
+}
 }
